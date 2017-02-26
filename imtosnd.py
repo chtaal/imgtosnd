@@ -1,16 +1,17 @@
-##
+## imports
 from PIL import Image
 import numpy as np
 import matplotlib.pyplot as plt
 import sounddevice as sd
 import scipy.signal as sig
 
-##
-im = Image.open("me.jpg").convert(mode='F')
+## get image and convert pixels to grayscale normalized between [0, 1]
+im = Image.open("data/me.jpg").convert(mode='F')
 im = np.asarray(im)
-im = im / np.max(im)
+im.setflags(write=True)
+im -= np.min(im)
+im /= np.max(im)
 plt.imshow(im)
-
 
 ##
 def next_pow2(x):
